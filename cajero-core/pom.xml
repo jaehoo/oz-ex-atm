@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>hbexample1</groupId>
-    <artifactId>hbexample1</artifactId>
-    <packaging>war</packaging>
+    <parent>
+        <groupId>oz</groupId>
+        <artifactId>hbexamples</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <groupId>oz</groupId>
+    <artifactId>cajero-core</artifactId>
+    <packaging>jar</packaging>
     <version>1.0</version>
     <build>
         <plugins>
@@ -208,12 +214,12 @@
         </dependency>
 
         <dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.12.1.GA</version>
-		</dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.12.1.GA</version>
+        </dependency>
 
-                 <!--Spring Framework -->
+        <!--Spring Framework -->
 
         <dependency>
             <groupId>org.springframework</groupId>
