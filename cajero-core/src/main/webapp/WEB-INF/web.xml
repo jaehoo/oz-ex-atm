@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>projectWEB</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:ApplicationContext.xml
+        </param-value>
+    </context-param>
+
+    <!-- Spring Listener It is executed whenever the ServletContext changes -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
+    <servlet>
+        <servlet-name>LeonelHechizo</servlet-name>
+        <servlet-class>control.servlets.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LeonelHechizo</servlet-name>
+        <url-pattern>/procesar</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>
+            15
+        </session-timeout>
+    </session-config>
+
+
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <!--<welcome-file>index.htm</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>-->
+    </welcome-file-list>
+
+
+</web-app>
