@@ -35,15 +35,12 @@ public class HelloServlet extends HttpServlet {
                 .getWebApplicationContext(getServletContext());
 
 
-        Double monto= (Double)request.getAttribute("monto");
-        String param=request.getParameter("monto");
+        Double monto= Double.valueOf(request.getParameter("monto"));
 
-
-        System.out.println("monto:"+monto);
+        System.out.println("param monto:="+monto);
 
         Cajero cajero=(Cajero) applicationContext.getBean("service.cajero");
         cajero.retiro(monto);
-
 
         System.out.println(" OK ===========================");
 
