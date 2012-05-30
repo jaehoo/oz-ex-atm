@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
+
+    <!--
+        @author: Lic. José Alberto Sánchez González
+        twitter: @jaehoox
+        mail: jaehoo@gmail.com
+    -->
+
+    <persistence-unit name="pu.main" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <!--<jta-data-source>java:/DefaultDS</jta-data-source>-->
+
+        <properties>
+            <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
+        </properties>
+
+    </persistence-unit>
+
+
+</persistence>

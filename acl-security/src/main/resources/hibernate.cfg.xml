@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <!--
+        @author: Lic. José Alberto Sánchez González
+        twitter: @jaehoox
+        mail: jaehoo@gmail.com
+    -->
+
+    <session-factory>
+
+
+        <!--<property name="hibernate.connection.url">jdbc:hsqldb:file:testdb</property>-->
+        <!--<property name="hibernate.connection.username">sa</property>-->
+
+
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.use_sql_comments">false</property>
+
+        <property name="hibernate.hbm2ddl.keywords">auto-quote</property>
+        <property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+        <property name="hibernate.transaction.auto_close_session">true</property>
+        <property name="hibernate.connection.autocommit">false</property>
+
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.characterEncoding">UTF8</property>
+        <property name="hibernate.connection.characterSetResults">UTF8</property>
+        <property name="hibernate.connection.charSet">UTF8</property>
+
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+
+        <!-- MYSQL -->
+        <!--
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        &lt;!&ndash; Only for Unix Enviroment's&ndash;&gt;
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        -->
+
+
+        <!-- Oracle -->
+        <!--
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        -->
+        <!--
+            To fix Oracle naming http://code.google.com/p/hibernate-naming-strategy-for-oracle/
+         -->
+        <!-- <property name="hibernate.ejb.naming_strategy">utils.OracleNamingStrategy</property>-->
+
+        <!-- HSQL DB -->
+        <!---->
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+
+
+
+        <!-- Cache -->
+        <!-- If Hibernate manage Transactions
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <property name="hibernate.current_session_context_class">thread</property>-->
+
+        <!-- Enable cache L2 and set provider -->
+        <!-- For Hibernate 3.2  -->
+        <!--<property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</property>-->
+        <!-- for hibernate 3.3 or higher -->
+        <!-- property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory</property -->
+
+
+
+        <property name="hibernate.cache.use_second_level_cache">false</property>
+        <property name="hibernate.cache.use_query_cache">false</property>
+        <property name="hibernate.generate_statistics">false</property>
+
+        <!-- Mappings -->
+        <!--<mapping class="oz.model.domain.Person"/>-->
+
+        <!-- HQL  querys -->
+        <!-- <mapping resource="hql-querys.xml"/>-->
+
+
+    </session-factory>
+
+</hibernate-configuration>

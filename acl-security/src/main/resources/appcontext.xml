@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns    ="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx ="http://www.springframework.org/schema/tx"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:p  ="http://www.springframework.org/schema/p"
+       xmlns:cxt="http://www.springframework.org/schema/context"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--
+        @author: Lic. José Alberto Sánchez González
+        twitter: @jaehoox
+        mail: jaehoo@gmail.com
+    -->
+
+
+    <!--<sec:http auto-config="true" path-type="ant">
+        <sec:intercept-url access="permitAll" pattern="/**" />
+    </sec:http>-->
+
+    <!-- HSQLDB
+            With Connection Pool To Memory
+            http://hsqldb.org/doc/guide/guide.html#N10148
+            - jdbc:hsqldb:mem:MyDB  to memory
+            - jdbc:hsqldb:file:.    to File system
+            - jdbc:hsqldb:res:      from jar o dir resource url
+            - jdbc:hsqldb:hsql:     from url //localhost:PORT/DB
+    -->
+    <bean id="app.ds"
+          class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close"
+          lazy-init="true"
+          p:driverClass="org.hsqldb.jdbcDriver"
+          p:user="sa"
+          p:password=""
+          p:jdbcUrl="jdbc:hsqldb:file:testdb"
+          p:acquireIncrement="5"
+          p:idleConnectionTestPeriod="60"
+          p:maxPoolSize="100"
+          p:minPoolSize="10"
+          p:maxStatements="50"/>
+
+    <!--==========  Mapping JPA Configuration in Spring  ==========-->
+
+    <!-- PERSISTENCE UNIT -->
+    <bean id="pum"
+          class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager"
+          p:defaultDataSource-ref="app.ds"
+          p:persistenceXmlLocations-ref="jpa.config"
+          p:dataSources-ref="jpa.dataSources"/>
+
+    <util:map id="jpa.dataSources">
+        <entry key="localDatasource" value-ref="app.ds" />
+    </util:map>
+
+    <util:list id="jpa.config">
+        <!--<value>WEB-INF/classes/persistence.xml</value> -->
+        <value>classpath:META-INF/persistence.xml</value>
+    </util:list>
+
+    <!-- ================
+        JPA Entity Manager Factory
+
+            - LocalContainerEntityManagerFactoryBean: Permite a la enitdad manejar multiples DB
+            - LocalEntityManagerFactoryBean: Utiliza una sola BD
+        -->
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:persistenceUnitManager-ref="pum"/>
+
+    <!-- JPA Transaction Manager TX-->
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory"/>
+    <!-- <property name="jpaDialect"-->
+    <!-- <property name="transactionSynchronizationName" value="java:/TransactionManager"/>-->
+
+
+    <!-- MySQL -->
+    <!--<bean id="ds.academia.abm.mysql" lazy-init="true"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          p:driverClassName="com.mysql.jdbc.Driver"
+          p:username="usrabm"
+          p:password="usrabm"
+          p:url="jdbc:mysql://localhost:3306/usrabm"
+          p:initialSize="5"
+          p:maxActive="5"
+          p:maxIdle="5"
+          p:defaultAutoCommit="false"
+          p:defaultTransactionIsolation="2"
+          p:validationQuery="select 1"
+          p:testOnBorrow="true"/>-->
+
+
+</beans>
