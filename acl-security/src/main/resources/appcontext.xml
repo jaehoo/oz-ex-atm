@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns    ="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx ="http://www.springframework.org/schema/tx"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jee="http://www.springframework.org/schema/jee"
-       xmlns:p  ="http://www.springframework.org/schema/p"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:cxt="http://www.springframework.org/schema/context"
        xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -30,44 +31,62 @@
         mail: jaehoo@gmail.com
     -->
 
+    <context:property-placeholder location="classpath:development.properties"/>
 
     <!--<sec:http auto-config="true" path-type="ant">
         <sec:intercept-url access="permitAll" pattern="/**" />
     </sec:http>-->
 
-    <!-- HSQLDB
-            With Connection Pool To Memory
-            http://hsqldb.org/doc/guide/guide.html#N10148
-            - jdbc:hsqldb:mem:MyDB  to memory
-            - jdbc:hsqldb:file:.    to File system
-            - jdbc:hsqldb:res:      from jar o dir resource url
-            - jdbc:hsqldb:hsql:     from url //localhost:PORT/DB
+
+    <!--
+        Connection Pool Configuration
+        - C3p0 or Apache dbcp
     -->
-    <bean id="app.ds"
+    <bean id="ds.main" parent="ds.cp.c3p0"/>
+
+    <!-- C3p0 DS  work with HSQLDB-->
+    <bean id="ds.cp.c3p0"
+          lazy-init="true"
           class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close"
-          lazy-init="true"
-          p:driverClass="org.hsqldb.jdbcDriver"
-          p:user="sa"
-          p:password=""
-          p:jdbcUrl="jdbc:hsqldb:file:testdb"
+          p:driverClass="${connection.driverClass}"
+          p:user="${connection.username}"
+          p:password="${connection.pass}"
+          p:jdbcUrl="${connection.jdbcUrl}"
           p:acquireIncrement="5"
           p:idleConnectionTestPeriod="60"
           p:maxPoolSize="100"
           p:minPoolSize="10"
           p:maxStatements="50"/>
 
-    <!--==========  Mapping JPA Configuration in Spring  ==========-->
+    <!-- Apache DS -->
+    <bean id="ds.cp.dbcp"
+          lazy-init="true"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          p:driverClassName="${connection.driverClass}"
+          p:username="${connection.username}"
+          p:password="${connection.pass}"
+          p:url="${connection.jdbcUrl}"
+          p:initialSize="5"
+          p:maxActive="5"
+          p:maxIdle="5"
+          p:defaultAutoCommit="false"
+          p:defaultTransactionIsolation="2"
+          p:validationQuery="select 1"
+          p:testOnBorrow="true"/>
+
+    <!-- JPA Configuration in Spring  -->
 
     <!-- PERSISTENCE UNIT -->
     <bean id="pum"
           class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager"
-          p:defaultDataSource-ref="app.ds"
+          p:defaultDataSource-ref="ds.main"
           p:persistenceXmlLocations-ref="jpa.config"
-          p:dataSources-ref="jpa.dataSources"/>
+          p:dataSources-ref="jpa.dataSources"
+          />
 
     <util:map id="jpa.dataSources">
-        <entry key="localDatasource" value-ref="app.ds" />
+        <entry key="localDatasource" value-ref="ds.main" />
     </util:map>
 
     <util:list id="jpa.config">
@@ -92,22 +111,5 @@
           p:entityManagerFactory-ref="entityManagerFactory"/>
     <!-- <property name="jpaDialect"-->
     <!-- <property name="transactionSynchronizationName" value="java:/TransactionManager"/>-->
-
-
-    <!-- MySQL -->
-    <!--<bean id="ds.academia.abm.mysql" lazy-init="true"
-          class="org.apache.commons.dbcp.BasicDataSource"
-          p:driverClassName="com.mysql.jdbc.Driver"
-          p:username="usrabm"
-          p:password="usrabm"
-          p:url="jdbc:mysql://localhost:3306/usrabm"
-          p:initialSize="5"
-          p:maxActive="5"
-          p:maxIdle="5"
-          p:defaultAutoCommit="false"
-          p:defaultTransactionIsolation="2"
-          p:validationQuery="select 1"
-          p:testOnBorrow="true"/>-->
-
 
 </beans>

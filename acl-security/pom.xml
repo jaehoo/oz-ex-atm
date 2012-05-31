@@ -14,12 +14,17 @@
 
     <properties>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+
+        <!-- Lib's -->
         <junit.version>4.9</junit.version>
         <hibernate.version>3.6.6.Final</hibernate.version>
         <slf4j.version>1.6.1</slf4j.version>
         <spring.framework.version>3.1.1.RELEASE</spring.framework.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <hsqldb.version>2.2.8</hsqldb.version>
+        <mysql.version>5.1.10</mysql.version>
         <logback.version>0.9.17</logback.version>
 
         <jetty.version>6.1.10</jetty.version>
@@ -70,6 +75,15 @@
         </dependency>
 
 
+
+        <!-- Java API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Logback -->
 
         <!--<dependency>
@@ -116,6 +130,12 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>${hsqldb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- Spirng Framework-->
@@ -372,7 +392,7 @@
 
 
             <!-- HSQLDB Server plugin-->
-            <!--<plugin>
+           <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
@@ -386,26 +406,17 @@
                 <configuration>
                     <mainClass>org.hsqldb.server.Server</mainClass>
                     <arguments>
-                        <argument>- -database.0</argument>
+                        <argument> - -database.0</argument>
                         <argument>file:./testdb</argument>
                     </arguments>
                 </configuration>
             </plugin>-->
-
 
             <!-- Hibernate DDL generator-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <version>2.2</version>
-                <executions>
-                    <execution>
-                        <!--<phase>process-classes</phase>-->
-                        <goals>
-                            <goal>hbm2ddl</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <components>
                         <component>
@@ -414,20 +425,56 @@
 
                         </component>
                     </components>
+
                     <componentProperties>
                         <!-- <configurationfile>src/main/resources/hibernate.cfg.xml</configurationfile>-->
-
-                        <configurationfile>META-INF/persistence.xml</configurationfile>
-                        <persistenceunit>pu.main</persistenceunit>
-                        <outputfilename>schema.ddl</outputfilename>
-                        <drop>false</drop>
+                        <drop>true</drop>
                         <create>true</create>
-                        <export>true</export>
+                        <export>false</export>
                         <format>true</format>
-                        <console>true</console>
+                        <outputfilename>schema-export.sql</outputfilename>
+                        <jdk5>true</jdk5>
+                        <scan-classes>false</scan-classes>
+                        <!-- <persistenceunit>pu.main</persistenceunit>-->
+                        <!--<propertyfile>src/main/resources/development.properties</propertyfile>-->
                     </componentProperties>
+
                 </configuration>
+
+                <!--<dependencies>
+                    <dependency>
+                        <groupId>com.oracle</groupId>
+                        <artifactId>ojdbc14</artifactId>
+                        <version>10.2.0.2.0</version>
+                    </dependency>
+                </dependencies>-->
             </plugin>
+
+            <!-- Version 3 Unstable-->
+
+            <!--
+                <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>hibernate3-maven-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <components>
+                        <component>
+                            <name>hbm2ddl</name>
+                            <implementation>jpaconfiguration</implementation>
+                        </component>
+                    </components>
+                    <hibernatetool>
+                        <classpath>
+                            <path location="${project.build.directory}/classes" />
+                            <path location="${project.basedir}/src/main/resources/META-INF/" />
+                        </classpath>
+                        <jpaconfiguration persistenceunit="pu.main"/>
+                        <hbm2ddl create="true" export="false" drop="true" outputfilename="schema-export.sql"
+                                 format="true" console="true"/>
+                    </hibernatetool>
+                </configuration>
+            </plugin>-->
         </plugins>
 
     </build>

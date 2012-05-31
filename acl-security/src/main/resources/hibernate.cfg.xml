@@ -12,12 +12,7 @@
 
     <session-factory>
 
-
-        <!--<property name="hibernate.connection.url">jdbc:hsqldb:file:testdb</property>-->
-        <!--<property name="hibernate.connection.username">sa</property>-->
-
-
-        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">false</property>
         <property name="hibernate.use_sql_comments">false</property>
 
@@ -31,7 +26,7 @@
         <property name="hibernate.connection.characterSetResults">UTF8</property>
         <property name="hibernate.connection.charSet">UTF8</property>
 
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
 
         <!-- MYSQL -->
@@ -53,9 +48,8 @@
         <!-- <property name="hibernate.ejb.naming_strategy">utils.OracleNamingStrategy</property>-->
 
         <!-- HSQL DB -->
-        <!---->
-        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+         <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+         <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
 
 
 
@@ -77,10 +71,14 @@
         <property name="hibernate.generate_statistics">false</property>
 
         <!-- Mappings -->
-        <!--<mapping class="oz.model.domain.Person"/>-->
+
+        <!-- Comment all mappings and Querys when you export ddl with hbm2dll-->
+
+         <mapping class="oz.model.domain.Person"/>
+         <mapping class="oz.model.domain.Account"/>
 
         <!-- HQL  querys -->
-        <!-- <mapping resource="hql-querys.xml"/>-->
+         <mapping resource="hql-querys.xml"/>
 
 
     </session-factory>

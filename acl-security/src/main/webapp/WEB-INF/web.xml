@@ -25,22 +25,30 @@
     </context-param>
 
 
+
     <!-- Spring Listener It is executed whenever the ServletContext changes -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-         <!-- Spring MVC -->
-<!--    <servlet>
-        <servlet-name>example</servlet-name>
+    <!-- Spring MVC -->
+
+    <servlet>
+        <servlet-name>distpacher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
+        
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:distpacher-servlet.xml</param-value>
+        </init-param>
+        
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>example</servlet-name>
+        <servlet-name>distpacher</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>-->
+    </servlet-mapping>
 
 
     <!-- Spring Security Filter Chain Proxy -->
