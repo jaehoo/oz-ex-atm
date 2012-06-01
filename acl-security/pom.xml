@@ -27,6 +27,10 @@
         <mysql.version>5.1.10</mysql.version>
         <logback.version>0.9.17</logback.version>
 
+        <servlet-api.version>2.5</servlet-api.version>
+        <jstl.version>1.2</jstl.version>
+
+
         <jetty.version>6.1.10</jetty.version>
         <c3po.version>0.9.1.2</c3po.version>
 
@@ -80,8 +84,35 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <version>${servlet-api.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- JSTL -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <scope>runtime</scope>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>c</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+            <type>tld</type>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>fmt</artifactId>
+            <version>1.1.1</version>
+            <scope>runtime</scope>
+            <type>tld</type>
         </dependency>
 
         <!-- Logback -->

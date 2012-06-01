@@ -27,6 +27,6 @@ public class HelloController implements Controller {
 
         logger.info("Enter to Hello Controller =) !! ");
 
-        return new ModelAndView("hello.jsp");
+        return new ModelAndView("hello");
     }
 }

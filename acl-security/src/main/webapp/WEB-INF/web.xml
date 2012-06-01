@@ -4,7 +4,8 @@
 
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 
     <!--
@@ -22,8 +23,8 @@
         <param-value>
             classpath:appcontext.xml
         </param-value>
-    </context-param>
 
+    </context-param>
 
 
     <!-- Spring Listener It is executed whenever the ServletContext changes -->
@@ -34,19 +35,23 @@
     <!-- Spring MVC -->
 
     <servlet>
-        <servlet-name>distpacher</servlet-name>
+
+        <description>Spring MVC distpacher</description>
+        <servlet-name>distpatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-        
+        <!-- <load-on-startup>1</load-on-startup>-->
+
+        <!-- Renaming distpatcher config file of Spring MVC-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:distpacher-servlet.xml</param-value>
+            <param-value>classpath:distpatcher-servlet.xml</param-value>
         </init-param>
-        
+
+
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>distpacher</servlet-name>
+        <servlet-name>distpatcher</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 

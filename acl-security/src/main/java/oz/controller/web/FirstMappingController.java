@@ -14,17 +14,17 @@ import org.springframework.web.servlet.ModelAndView;
  * To change this template use File | Settings | File Templates.
  */
 @Controller
-public class HelloWorldController {
+public class FirstMappingController {
 
-    public static final Logger logger= LoggerFactory.getLogger(HelloWorldController.class);
+    public static final Logger logger= LoggerFactory.getLogger(FirstMappingController.class);
 
-    @RequestMapping("/helloWorld")
+    @RequestMapping("/firstPage")
     public ModelAndView helloWorld(){
 
-        logger.info("Hello World Controller !!!!!!!!!!");
+        logger.info("--- My First Controller =) !!");
 
         ModelAndView model= new ModelAndView();
-        model.setViewName("helloWorld");
+        model.setViewName("first_page");
         model.addObject("message", " rulz!! =)");
 
         return model;
