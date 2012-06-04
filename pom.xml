@@ -5,9 +5,9 @@
 		
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>oz</groupId>
-	<artifactId>hbexamples</artifactId>
+	<artifactId>atm-example</artifactId>
 	<packaging>pom</packaging>
-	<name>hbexamples</name>
+	<name>atm-example</name>
 	<version>1.0</version>
 	<description>Parent project for hbexamples</description>
 
