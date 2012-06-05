@@ -1,4 +1,6 @@
 Hibernate Spring Example
 ======================
 
-Ejemplos de Hibernate con Spring by jaehoo =P...
+Ejemplo del cajero automático con Hibernate/Jpa y Spring 
+
+by jaehoo =P...
